@@ -1,3 +1,4 @@
+'use strict';
 class DatePicker{
     constructor(id, callBack) {
     this.id = id;
@@ -5,6 +6,6 @@ class DatePicker{
 
     }
     render(date){
-        const div = datepicker.getElementById(this.id);
+        const div = datepicker.html.getElementById(this.id);
     }
 }
