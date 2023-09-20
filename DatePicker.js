@@ -9,6 +9,6 @@ class DatePicker{
         const div = document.getElementById(this.id);
         if(!div){
             console.error(`No element with id ${this.id} found`);
-        }
+        } 
     }
 }
