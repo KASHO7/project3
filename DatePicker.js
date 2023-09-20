@@ -3,9 +3,9 @@ class DatePicker{
     constructor(id, callBack) {
     this.id = id;
     this.callBack = callBack;
-
+    this.date = new Date();
     }
     render(date){
-        const div = datepicker.html.getElementById(this.id);
+        const div = document.getElementById(this.id);
     }
 }
