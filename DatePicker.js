@@ -18,10 +18,27 @@ class DatePicker{
 
     
         div.innerHTML = '';
+        const datePickerDiv = document.createElement('div');
+        datePickerDiv.className="date-picker";
+        div.appendChild(datePickerDiv);
+
+        const headerDiv = document.createElement('div');
+        headerDiv.className='header';
+        div.appendChild(headerDiv);
+
+        const prevMonthDiv = document.createElement('button');
+        prevMonthDiv.className='prev-month';
+        prevMonthDiv.innerHTML='&#9665';
+        prevMonthDiv.addEventListener('click',()=>this.prevMonth());
+        headerDiv.appendChild(prevMonthDiv);
+
+        const currentMonthDiv = document.createElement('button');
+        currentMonthDiv.className='current-name';
+        currentMonthDiv.innerText=`${this.getMonthName()} ${this.year}`;
 
     }
     getMonthName(month){
-        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'Septemper', 'October', 'November', 'December'];
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         return months[month];
     }
     
