@@ -32,9 +32,10 @@ class DatePicker{
         prevMonthDiv.addEventListener('click',()=>this.prevMonth());
         headerDiv.appendChild(prevMonthDiv);
 
-        const currentMonthDiv = document.createElement('button');
+        const currentMonthDiv = document.createElement('div');
         currentMonthDiv.className='current-name';
         currentMonthDiv.innerText=`${this.getMonthName()} ${this.year}`;
+        headerDiv.appendChild(currentMonthDiv);
 
     }
     getMonthName(month){
