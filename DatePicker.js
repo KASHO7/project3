@@ -1,10 +1,12 @@
 "use strict";
+
 class DatePicker {
   constructor(id, callBack) {
     this.id = id;
     this.callBack = callBack;
     this.date = new Date();
   }
+
   render(date) {
     const div = document.getElementById(this.id);
 
@@ -19,14 +21,13 @@ class DatePicker {
     const lastDay = new Date(year, month + 1, 0);
     const firstDay = new Date(year, month, 1);
     const daysInMonth = lastDay.getDate();
-    const firstOfWeek = firstDay.getDay();
+    const firstDayOfWeek = firstDay.getDay();
 
     const calendar = this.generateCalendar(
       year,
       month,
-      weekdays,
       daysInMonth,
-      firstOfWeek
+      firstDayOfWeek
     );
     const monthName = this.getMonthName(month);
 
@@ -85,14 +86,17 @@ class DatePicker {
       }
     }
   }
+
   prevMonth() {
     this.date.setMonth(this.date.getMonth() - 1);
     this.render(this.date);
   }
+
   nextMonth() {
     this.date.setMonth(this.date.getMonth() + 1);
     this.render(this.date);
   }
+
   getMonthName(month) {
     const months = [
       "January",
@@ -110,42 +114,45 @@ class DatePicker {
     ];
     return months[month];
   }
-  generateCalendar() {
-    const month = this.date.getMonth();
-    const year = this.date.getFullYear();
-    const day = this.date.getDate();
-    const lastDay = new Date(year, month + 1, 0);
-    const first = new Date(year, month, 1);
-    const daysInMonth = lastDay.getDate();
-    const firstOfWeek = first.getDay();
-    const lastDayOfWeek = lastDay.getDay();
+
+  generateCalendar(year, month, daysInMonth, firstDayOfWeek) {
     const calendar = [];
-    let dayOfWeek = firstOfWeek;
+    let dayOfWeek = firstDayOfWeek;
     let dayOfMonth = 1;
     let week = 0;
+
     while (dayOfMonth <= daysInMonth) {
       calendar[week] = [];
+
       if (week === 0) {
         for (let i = 0; i < dayOfWeek; i++) {
           calendar[week][i] = "";
         }
       }
-      while (dayOfWeek < 7) {
+
+      while (dayOfWeek < 7 && dayOfMonth <= daysInMonth) {
         calendar[week][dayOfWeek] = dayOfMonth;
         dayOfWeek++;
         dayOfMonth++;
       }
+
       dayOfWeek = 0;
       week++;
     }
+
+    while (calendar[week - 1].length < 7) {
+      calendar[week - 1].push("");
+    }
+
     return calendar;
   }
+
   handleDayClick(dayCell) {
     const selectedDay = parseInt(dayCell.innerText);
-    const selectedMonth = this.selectedDate.getMonth() + 1;
-    const selectedYear = this.selectedDate.getFullYear();
+    const selectedMonth = this.date.getMonth() + 1;
+    const selectedYear = this.date.getFullYear();
 
-    this.callback(this.id, {
+    this.callBack(this.id, {
       month: selectedMonth,
       day: selectedDay,
       year: selectedYear,
