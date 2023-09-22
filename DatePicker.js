@@ -63,27 +63,35 @@ class DatePicker {
     const thead = document.createElement("thead");
     table.appendChild(thead);
 
-    const weekrow = document.createElement("tr");
-    thead.appendChild(weekrow);
+    const weekdays = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
-    const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    // Create a row for the weekdays at the top of the calendar
+    const weekdayRow = document.createElement("tr");
     weekdays.forEach((day) => {
       const th = document.createElement("th");
       th.innerText = day;
-      weekrow.appendChild(th);
+      weekdayRow.appendChild(th);
     });
+    thead.appendChild(weekdayRow);
 
     const tbody = document.createElement("tbody");
     table.appendChild(tbody);
 
-    tbody.innerHTML = calendar;
+    for (let i = 0; i < calendar.length; i++) {
+      const week = calendar[i];
+      const weekrow = document.createElement("tr");
 
-    const dayCells = tbody.querySelectorAll("td");
-    for (let i = 0; i < dayCells.length; i++) {
-      const dayCell = dayCells[i];
-      if (!dayCell.classList.contains("dimmed-day")) {
-        dayCell.addEventListener("click", () => this.handleDayClick(dayCell));
+      for (let j = 0; j < 7; j++) {
+        const day = week[j];
+        const td = document.createElement("td");
+        td.innerText = day !== "" ? day : " "; // Display empty cells as spaces
+        if (day === "") {
+          td.classList.add("dimmed-day"); // Add a class to dim empty cells
+        }
+        weekrow.appendChild(td);
       }
+
+      tbody.appendChild(weekrow);
     }
   }
 
