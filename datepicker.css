@@ -1,5 +1,10 @@
 
 h1 {
     color: black;
-    background: #687291;
+    background: indigo;
+}
+body {
+background: purple;
+    font-family: Tahoma, Arial, sans-serif; font-size: 13px;
+    padding: 2em;
 }
